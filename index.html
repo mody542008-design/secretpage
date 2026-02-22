@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Secret Love Page</title>
+<style>
+body{
+  margin:0;
+  padding:0;
+  background:linear-gradient(to right,#ff416c,#ff4b2b);
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-family:Arial;
+  color:white;
+  text-align:center;
+}
+
+input{
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+}
+
+button{
+  padding:10px 25px;
+  border-radius:20px;
+  border:none;
+  background:white;
+  color:#ff416c;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+h2{
+  margin-top:20px;
+  min-height:50px;
+  font-size:22px;
+}
+
+.heart{
+  position:absolute;
+  color:white;
+  font-size:20px;
+  animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(110vh);}
+}
+</style>
+</head>
+<body>
+
+<h1>Enter The Password ❤️</h1>
+
+<input type="password" id="pass" placeholder="Password">
+<br><br>
+<button onclick="check()">Open</button>
+
+<h2 id="message"></h2>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+
+// كتابة الرسالة حرف حرف
+function typeWriter(text, i = 0) {
+  if (i < text.length) {
+    document.getElementById("message").innerHTML += text.charAt(i);
+    setTimeout(function() {
+      typeWriter(text, i + 1);
+    }, 100);
+  }
+}
+
+// فحص الباسورد
+function check(){
+  var password = document.getElementById("pass").value;
+  if(password == "love"){
+    document.getElementById("message").innerHTML = "";
+    var msg = "بحبك اوي يا Mayoya ❤️🥹 انتي اجمل حاجة حصلتلي";
+    typeWriter(msg);
+    document.getElementById("music").play();
+  } else {
+    document.getElementById("message").innerHTML = "غلط ❌ حاول تاني";
+  }
+}
+
+// القلوب اللي بتقع
+function createHeart(){
+  var heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (Math.random()*3+2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(()=>{ heart.remove(); },5000);
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
